@@ -3,24 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Library;
+//package Library;
 
 /**
  *
  * @author Bill
  */
+
+import java.util.ArrayList;
+
 public class Library {
     static String hours;
     String address;
-    Book [] catalog = new Book[999];
-    static int bookcount;
+    ArrayList<Book> catalog;
     int booknumber;
     
     
     Library (String whereisit){
+        catalog = new ArrayList<Book>();
         address = whereisit;
         hours = "9am to 5pm";
-        bookcount = -1;
     }
     
     
@@ -28,22 +30,19 @@ public class Library {
     public void addBook(String newbook){
         Book a = new Book(newbook);
         a.name = newbook;
-        bookcount +=1;
-        booknumber = bookcount;
-        catalog[booknumber] = a;
-  
+        catalog.add(a);
     }
     
     public void borrowBook(String somebook){
-        for (int b = 0; b < booknumber; b++){
-            if (somebook.equals(catalog[b].name)){
-                if (catalog[b].isIn == true){
-                    catalog[b].isIn = false;
-                    System.out.println("You successfully borrowed "+ catalog[b].name);
-                }else{
+        for (Book book : catalog) {
+            if (somebook.equals(book.name)) {
+                if (book.isIn == true) {
+                    book.isIn = false;
+                    System.out.println("You successfully borrowed "+ book.name);
+                } else {
                     System.out.println("Sorry, this book is already borrowed.");
                 }
-            }else{
+            } else {
                 System.out.println("Sorry, this book is not in our catalog.");
             }
         }
